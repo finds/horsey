@@ -209,7 +209,7 @@ function autocomplete (el, options = {}) {
     container.appendChild(noneMatch);
   }
   parent.appendChild(container);
-  el.setAttribute('autocomplete', 'off');
+  el.setAttribute('autocomplete', 'none');
 
   if (Array.isArray(source)) {
     loaded(source, false);
@@ -747,10 +747,17 @@ function autocomplete (el, options = {}) {
       loading();
     }
     if (anyInput) {
-      crossvent[op](attachment, 'keypress', deferredShow);
-      crossvent[op](attachment, 'keypress', deferredFiltering);
+      //crossvent[op](attachment, 'keypress', deferredShow);
+      //crossvent[op](attachment, 'keypress', deferredFiltering);
       crossvent[op](attachment, 'keydown', deferredFilteringNoEnter);
-      crossvent[op](attachment, 'paste', deferredFiltering);
+      crossvent[op](attachment, 'paste', function (ev) {
+        deferredShow(ev);
+        deferredFiltering(ev);
+      });
+      crossvent[op](attachment, 'input', function (ev) {
+        deferredShow(ev);
+        deferredFiltering(ev);
+      });
       crossvent[op](attachment, 'keydown', keydown);
       if (o.autoHideOnBlur) { crossvent[op](attachment, 'keydown', hideOnBlur); }
     } else {
