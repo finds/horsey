@@ -1,6 +1,13 @@
 void function () {
   'use strict';
 
+
+  horsey(document.querySelector('#nomatch'), {
+    source: [{ list: ['banana', 'apple', 'orange'] }],
+    noMatches:"Oh <b>dear</b> no matches",
+    noMatchesHTML:true
+  });
+
   horsey(document.querySelector('#hy'), {
     source: [{ list: ['banana', 'apple', 'orange'] }]
   });

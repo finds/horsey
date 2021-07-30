@@ -66,6 +66,7 @@ function horsey (el, options = {}) {
     anchor,
     noMatches,
     noMatchesText: options.noMatches,
+    noMatchesHTML: options.noMatchesHTML,
     blankSearch,
     debounce,
     set (s) {
@@ -144,6 +145,7 @@ function autocomplete (el, options = {}) {
     source,
     noMatches,
     noMatchesText,
+    noMatchesHTML,
     highlighter = true,
     highlightCompleteWords = true,
     renderItem = defaultItemRenderer,
@@ -205,7 +207,12 @@ function autocomplete (el, options = {}) {
   container.appendChild(categories);
   if (noMatches && noMatchesText) {
     noneMatch = tag('div', 'sey-empty sey-hide');
-    text(noneMatch, noMatchesText);
+    if (noMatchesHTML) {
+      html(noneMatch, noMatchesText);
+    } else {
+      text(noneMatch, noMatchesText);
+    }
+    
     container.appendChild(noneMatch);
   }
   parent.appendChild(container);
@@ -870,6 +877,7 @@ function tag (type, className) {
 
 function defer (fn) { return function () { setTimeout(fn, 0); }; }
 function text (el, value) { el.innerText = el.textContent = value; }
+function html (el, value) { el.innerHTML =value; }
 
 function isEditable (el) {
   const value = el.getAttribute('contentEditable');
