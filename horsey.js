@@ -69,6 +69,8 @@ function horsey (el, options = {}) {
     noMatchesHTML: options.noMatchesHTML,
     blankSearch,
     debounce,
+    highlighter:options.highlighter,
+    highlightCompleteWords:options.highlightCompleteWords,
     set (s) {
       if (setAppends !== true) {
         el.value = '';
@@ -340,6 +342,7 @@ function autocomplete (el, options = {}) {
         show();
         filtering();
       }
+      crossvent.fabricate(el, 'horsey-selected');
     }
 
     function filterItem () {
@@ -396,7 +399,7 @@ function autocomplete (el, options = {}) {
     clearRemainder();
 
     function balance () {
-      chars = elems.map(el => el.innerText || el.textContent);
+      chars = elems.map(el => el.textContent);
     }
 
     function whole () {
