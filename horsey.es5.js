@@ -98,6 +98,8 @@ function horsey(el) {
     noMatchesHTML: options.noMatchesHTML,
     blankSearch: blankSearch,
     debounce: debounce,
+    highlighter: options.highlighter,
+    highlightCompleteWords: options.highlightCompleteWords,
     set: function set(s) {
       if (setAppends !== true) {
         el.value = '';
@@ -389,6 +391,7 @@ function autocomplete(el) {
         show();
         filtering();
       }
+      _crossvent2.default.fabricate(el, 'horsey-selected');
     }
 
     function filterItem() {
@@ -470,7 +473,7 @@ function autocomplete(el) {
 
     function balance() {
       chars = elems.map(function (el) {
-        return el.innerText || el.textContent;
+        return el.textContent;
       });
     }
 
